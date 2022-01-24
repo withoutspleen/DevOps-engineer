@@ -19,8 +19,11 @@ sshpass -p "password" rsync -avz file1.txt username@ip:/dir/
 
 ## Добавляем задачу в cron:
 nano /etc/crontab
+
 добавляем задачу:
+
 0 0 * * 7	user	/dir/script.sh
+
 Таким образом система будет запускать наш скрипт каждое воскресенье в 0:00
 
 ## P.S:
