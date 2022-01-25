@@ -1,3 +1,5 @@
+## Сборка веб-приложения war с помощью Maven:
+
 ```
 cd dir/
 # переходим в необходимую директорию
@@ -28,5 +30,7 @@ dir - директория приложения, находящаяся в /var/
 ## Скриншоты:
 
 ![](IMG/practice3-1.png?raw=true)
+
 ![](IMG/practice3-2.png?raw=true)
+
 ![](IMG/practice3-3.png?raw=true)
