@@ -1,6 +1,7 @@
 ## Репликации баз данных PostgreSQL
 
 1. Подключение реплики:
+
 Редактируем конфигурационный файл pg_hba.conf, отвечающий за аутентификацию клиентов:
 ```
 nano /etc/postgresql/12/main/pg_hba.conf
@@ -17,6 +18,7 @@ service postgresql restart
 ```
 
 2. Подготовка реплики:
+
 Установка PostgreSQL:
 ```
 apt install postgresql -y
@@ -33,6 +35,7 @@ service postgresql restart
 
 
 3. Настройка отложенной репликации:
+
 На реплике, редактируем конфигурационный файл postgresql.conf:
 ```
 nano /etc/postgresql/12/main/postgresql.conf
@@ -45,6 +48,7 @@ service postgresql restart
 ```
 
 4. Promotion:
+
 На реплике подготавливаем директорию:
 ```
 mkdir dir
