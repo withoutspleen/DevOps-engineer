@@ -12,7 +12,7 @@ RUN apt update && apt install -y \
   cd boxfuse-sample-java-war-hello; \
   mvn package; \
 # копируем исполняемый файл в директорию tomcat'а
-  cp target/hello-1.0.war /var/lib/tomcat9/webapps/ \
+  cp target/hello-1.0.war /var/lib/tomcat9/webapps/
 # открываем порт 8080 \
 EXPOSE 8080
 # запускаем tomcat
