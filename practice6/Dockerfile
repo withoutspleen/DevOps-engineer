@@ -1,7 +1,10 @@
 FROM ubuntu:20.04
 
-# устанавливаем все необходимые пакеты
+# укажем местоположение, чтобы у устанавливаемых пакетов не возникало вопросов
 ENV TZ=Europe/Moscow
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+# устанавливаем все необходимые пакеты
 RUN apt update && apt install -y \
   default-jdk \
   tomcat9 \
