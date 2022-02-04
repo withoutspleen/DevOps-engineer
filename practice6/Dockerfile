@@ -24,7 +24,7 @@ RUN apt update && apt install -y \
   cp /dir/logging.properties /usr/share/tomcat9/config/ \
   cp /dir/catalina.properties /usr/share/tomcat9/config/ \
   cp /dir/tomcat-users.xml /usr/share/tomcat9/config/ \
-  cp /dir/jaspic-providers.xml /usr/share/tomcat9/config/ \
+  cp /dir/jaspic-providers.xml /usr/share/tomcat9/config/
   mkdir /usr/share/tomcat9/conf/
 
 # открываем порт 8080
