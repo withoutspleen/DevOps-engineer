@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:18.04
 
 # укажем местоположение, чтобы у устанавливаемых пакетов не возникало вопросов
 ENV TZ=Europe/Moscow
@@ -20,7 +20,10 @@ RUN apt update && apt install -y \
     cd boxfuse-sample-java-war-hello; \
     mvn package; \
 # копируем исполняемый файл в директорию tomcat'а
-    cp target/hello-1.0.war /var/lib/tomcat9/webapps/
+    cp target/hello-1.0.war /var/lib/tomcat9/webapps/; \
+    cp -r /var/lib/tomcat9/* /usr/share/tomcat9/; \
+    rm /usr/share/tomcat9/work/; \
+    mkdir -p /usr/share/tomcat9/work/Catalina/localhost/hello-1.0/
 
 # запускаем tomcat
 CMD ["/usr/share/tomcat9/bin/catalina.sh", "run"]
