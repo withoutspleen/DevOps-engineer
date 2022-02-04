@@ -22,7 +22,7 @@ RUN apt update && apt install -y \
 # копируем исполняемый файл в директорию tomcat'а
     cp target/hello-1.0.war /var/lib/tomcat9/webapps/; \
     cp -r /var/lib/tomcat9/* /usr/share/tomcat9/; \
-    rm /usr/share/tomcat9/work/; \
+    rm /usr/share/tomcat9/work; \
     mkdir -p /usr/share/tomcat9/work/Catalina/localhost/hello-1.0/
 
 # запускаем tomcat
