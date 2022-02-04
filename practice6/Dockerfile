@@ -21,6 +21,7 @@ RUN apt update && apt install -y \
     mvn package; \
 # копируем исполняемый файл в директорию tomcat'а
     cp target/hello-1.0.war /var/lib/tomcat9/webapps/; \
+# предоставляем необходимые файлы catalin'е
     cp -r /var/lib/tomcat9/* /usr/share/tomcat9/; \
     rm /usr/share/tomcat9/work; \
     mkdir -p /usr/share/tomcat9/work/Catalina/localhost/hello-1.0/
