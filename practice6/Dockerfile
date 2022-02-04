@@ -4,6 +4,9 @@ FROM ubuntu:20.04
 ENV TZ=Europe/Moscow
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
+# открываем порт 8080
+EXPOSE 8080
+
 # устанавливаем все необходимые пакеты
 RUN apt update && apt install -y \
     default-jdk \
@@ -17,7 +20,7 @@ RUN apt update && apt install -y \
     cd boxfuse-sample-java-war-hello; \
     mvn package; \
 # копируем исполняемый файл в директорию tomcat'а
-    cp target/hello-1.0.war /var/lib/tomcat9/webapps/ \
+    cp target/hello-1.0.war /var/lib/tomcat9/webapps/
 
 # пути
 ENV CATALINA_HOME /usr/local/tomcat
@@ -25,8 +28,7 @@ ENV PATH $CATALINA_HOME/bin:$PATH
 RUN mkdir -p "$CATALINA_HOME"
 WORKDIR $CATALINA_HOME
 
-# открываем порт 8080
-EXPOSE 8080
+
 
 # запускаем tomcat
 CMD ["/usr/share/tomcat9/bin/catalina.sh", "run"]
