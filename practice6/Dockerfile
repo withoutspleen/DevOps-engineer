@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 # устанавливаем все необходимые пакеты
 RUN apt update && apt install -y \
   default-jdk \
-  apt install -y tomcat9 \
+  tomcat9 \
   maven \
   git && \
 # клонируем репозиторий с boxfuse
