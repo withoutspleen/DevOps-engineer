@@ -1,6 +1,7 @@
 FROM ubuntu:20.04
 
 # устанавливаем все необходимые пакеты
+ENV TZ=Europe/Moscow
 RUN apt update && apt install -y \
   default-jdk \
   tomcat9 \
