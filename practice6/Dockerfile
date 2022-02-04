@@ -6,26 +6,27 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # устанавливаем все необходимые пакеты
 RUN apt update && apt install -y \
-  default-jdk \
-  tomcat9 \
-  maven \
-  git && \
+    default-jdk \
+    tomcat9 \
+    maven \
+    git && \
 # клонируем репозиторий с boxfuse
-  cd home; \
-  git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git; \
+    cd home; \
+    git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git; \
 # переходим в директорию с файлом pom.xml, начинаем сборку
-  cd boxfuse-sample-java-war-hello; \
-  mvn package; \
+    cd boxfuse-sample-java-war-hello; \
+    mvn package; \
 # копируем исполняемый файл в директорию tomcat'а
-  cp target/hello-1.0.war /var/lib/tomcat9/webapps/ \
+    cp target/hello-1.0.war /var/lib/tomcat9/webapps/; \
 # Копируем файлы конфигурации необхоидимые catalin'е и создаем папку для временных файлов
-  cp /dir/server.xml /usr/share/tomcat9/config/ \
-  cp /dir/web.xml /usr/share/tomcat9/config/ \
-  cp /dir/logging.properties /usr/share/tomcat9/config/ \
-  cp /dir/catalina.properties /usr/share/tomcat9/config/ \
-  cp /dir/tomcat-users.xml /usr/share/tomcat9/config/ \
-  cp /dir/jaspic-providers.xml /usr/share/tomcat9/config/
-RUN mkdir /usr/share/tomcat9/conf/
+    mkdir /usr/share/tomcat9/conf; \
+    mkdir /usr/share/tomcat9/temp/; \
+    cp /etc/tomcat9/server.xml /usr/share/tomcat9/conf/; \
+    cp /etc/tomcat9/web.xml /usr/share/tomcat9/conf/; \
+    cp /etc/tomcat9/logging.properties /usr/share/tomcat9/conf/; \
+    cp /etc/tomcat9/catalina.properties /usr/share/tomcat9/conf/; \
+    cp /etc/tomcat9/tomcat-users.xml /usr/share/tomcat9/conf/; \
+    cp /etc/tomcat9/jaspic-providers.xml /usr/share/tomcat9/conf/
 
 # открываем порт 8080
 EXPOSE 8080
