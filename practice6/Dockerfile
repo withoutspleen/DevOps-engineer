@@ -4,6 +4,12 @@ FROM ubuntu:20.04
 ENV TZ=Europe/Moscow
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
+# пути
+ENV CATALINA_HOME /usr/local/tomcat
+ENV PATH $CATALINA_HOME/bin:$PATH
+RUN mkdir -p "$CATALINA_HOME"
+WORKDIR $CATALINA_HOME
+
 # устанавливаем все необходимые пакеты
 RUN apt update && apt install -y \
     default-jdk \
@@ -18,15 +24,6 @@ RUN apt update && apt install -y \
     mvn package; \
 # копируем исполняемый файл в директорию tomcat'а
     cp target/hello-1.0.war /var/lib/tomcat9/webapps/; \
-# Копируем файлы конфигурации необхоидимые catalin'е и создаем папку для временных файлов
-    mkdir /usr/share/tomcat9/conf; \
-    mkdir /usr/share/tomcat9/temp/; \
-    cp /etc/tomcat9/server.xml /usr/share/tomcat9/conf/; \
-    cp /etc/tomcat9/web.xml /usr/share/tomcat9/conf/; \
-    cp /etc/tomcat9/logging.properties /usr/share/tomcat9/conf/; \
-    cp /etc/tomcat9/catalina.properties /usr/share/tomcat9/conf/; \
-    cp /etc/tomcat9/tomcat-users.xml /usr/share/tomcat9/conf/; \
-    cp /etc/tomcat9/jaspic-providers.xml /usr/share/tomcat9/conf/
 
 # открываем порт 8080
 EXPOSE 8080
