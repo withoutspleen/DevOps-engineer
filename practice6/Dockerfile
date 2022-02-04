@@ -22,13 +22,5 @@ RUN apt update && apt install -y \
 # копируем исполняемый файл в директорию tomcat'а
     cp target/hello-1.0.war /var/lib/tomcat9/webapps/
 
-# пути
-ENV CATALINA_HOME /usr/local/tomcat
-ENV PATH $CATALINA_HOME/bin:$PATH
-RUN mkdir -p "$CATALINA_HOME"
-WORKDIR $CATALINA_HOME
-
-
-
 # запускаем tomcat
 CMD ["/usr/share/tomcat9/bin/catalina.sh", "run"]
