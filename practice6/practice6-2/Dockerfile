@@ -1,21 +1,14 @@
 FROM tomcat:9.0
 
-# укажем местоположение, чтобы у устанавливаемых пакетов не возникало вопросов
-ENV TZ=Europe/Moscow
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
-# открываем порт 8080
-EXPOSE 8080
-
-# устанавливаем все необходимые пакеты
+# installing packages
 RUN apt update && apt install -y \
     maven \
     git && \
-# клонируем репозиторий с boxfuse
+# clone boxfuse repo
     cd /; \
     git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git; \
-# переходим в директорию с файлом pom.xml, начинаем сборку
+# start packaging, from directory with pom.xml file
     cd boxfuse-sample-java-war-hello; \
     mvn package; \
-# копируем исполняемый файл в директорию tomcat'а
+# copy war file for tomcat
     cp target/hello-1.0.war /usr/local/tomcat/webapps/; \
