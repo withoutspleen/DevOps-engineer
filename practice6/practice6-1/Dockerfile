@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 # initialize location (for Ubuntu 20.04 only)
-# ENV TZ=Europe/Moscow
-# RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+    # ENV TZ=Europe/Moscow
+    # RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # open 8080 port
 EXPOSE 8080
