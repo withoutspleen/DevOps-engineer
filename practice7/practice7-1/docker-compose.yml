@@ -1,9 +1,18 @@
-version: '3.7'
+version: '3'
 services:
   package:
-    links:
-      - production
+    build: maven3.8.4-jdk-11
     volumes:
-      - type: bind
-        source: ~/practice7-1
-        target: /
+      - war_file:/tmp/boxfuse-sample-java-war-hello/target/
+
+  production:
+    image: tomcat:9.0
+    ports:
+      - "8080:8080"
+    depends_on:
+      - package
+    volumes:
+      - war_file:/usr/local/tomcat/webapps/
+
+volumes:
+  war_file:
