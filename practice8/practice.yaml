@@ -1,0 +1,24 @@
+firms:
+  dream:
+    departments:
+      first:
+        employees:
+          - olga
+          - olga
+          - olga
+          - olga
+          - olga
+      second:
+        lawyers:
+          - roman
+          - roman
+          - roman
+          - roman
+      third:
+        lawyers:
+          - olga
+      fourth:
+
+      fifth:
+
+      sixth:
