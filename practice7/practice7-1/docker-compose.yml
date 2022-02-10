@@ -16,7 +16,7 @@ services:
     volumes:
       - type: volume
         source: share
-        target: /var/lib/jetty/webapss/
+        target: /var/lib/jetty/webapps
 
 volumes:
   share:
