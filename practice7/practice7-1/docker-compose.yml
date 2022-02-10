@@ -1,9 +1,11 @@
-version: '3'
+version: '3.9'
 services:
   package:
     build: maven3.8.4-jdk-11
     volumes:
-      - war_file:/tmp/boxfuse-sample-java-war-hello/target/
+      - type: volume
+        source: share
+        target: /tmp/boxfuse-sample-java-war-hello/target/
 
   production:
     image: tomcat:9.0
@@ -12,7 +14,9 @@ services:
     depends_on:
       - package
     volumes:
-      - war_file:/usr/local/tomcat/webapps/
+      - type: volume
+        source: share
+        target: /usr/local/tomcat/webapps/
 
 volumes:
-  war_file:
+  share:
