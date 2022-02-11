@@ -1,0 +1,22 @@
+---
+- name: Package and Deploy
+  hosts: build, production
+  become: yes
+
+  tasks:
+  - name: Install Maven
+    apt:
+      name: maven
+      update_cache: yes
+
+  - name: Clone repository
+    git:
+      repo: https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
+      dest: /tmp
+
+  - name: Package webapp
+    shell: mvn package; mkdir /tmp/webapps; cp /target/hello-1.0.war /tmp/webapps
+    args:
+      chdir: /tmp/boxfuse-sample-java-war-hello/
+      creates: /tmp/webapps/hello-1.0.war
+
