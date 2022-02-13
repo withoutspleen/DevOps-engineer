@@ -9,7 +9,12 @@
       name: python3-pip
       update_cache: yes
 
-  - name: Install Docker
+  - name: Install docker
+    apt:
+      name: docker.io
+      update_cache: yes
+
+  - name: Install Docker API
     pip:
       name: docker
 
@@ -21,7 +26,8 @@
 
   - name: Build container
     docker_image:
-      path: /tmp/docker/
+      build:
+        path: /tmp/docker/
       name: build
 
   - name: Start container
@@ -37,3 +43,39 @@
       src: /tmp/webapps/hello-1.0.war
       dest: /tmp/webapps/
       flat: yes
+
+- name: Deploy artifact in docker
+  hosts: production
+  become: yes
+
+  tasks:
+  - name: Install pip
+    apt:
+      name: python3-pip
+      update_cache: yes
+
+  - name: Install docker
+    apt:
+      name: docker.io
+      update_cache: yes
+
+  - name: Install Docker API
+    pip:
+      name: docker
+
+  - name: Build container
+    docker_container:
+      name: production
+      image: tomcat:jre8-alpine
+      ports:
+        - "8080:8080"
+
+  - name: Copy artifact from localhost
+    copy:
+      src: /tmp/webapps/hello-1.0.war
+      dest: /tmp/webapps
+      mode: 0644
+
+  - name: Copy artifact to container
+    shell: "docker cp /tmp/webapps/hello-1.0.war production:/usr/local/tomcat/webapps/"
+
