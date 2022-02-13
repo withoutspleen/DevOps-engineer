@@ -1,0 +1,119 @@
+---
+firm:
+  name: dream
+    departments:
+      first:
+        salary:
+          very high
+        employees:
+          olga:
+            profession:
+              accountant
+          olga:
+            profession:
+              accountant
+          olga:
+            profession:
+              accountant
+          olga:
+            profession:
+              accountant
+          dmitry:
+            profession:
+              unkown
+          dmitry:
+            profession:
+              unkown
+          dmitry:
+            profession:
+              unkown
+          ivan:
+            profession:
+              unkown
+          ivan:
+            profession:
+              unkown
+
+      second:
+        salary:
+          normal
+        employees:
+          roman:
+            profesion:
+              lawyer
+            age:
+              <30
+          roman:
+            profesion:
+              lawyer
+            age:
+              <30
+          roman:
+            profesion:
+              lawyer
+            age:
+              <30
+          roman:
+            profesion:
+              lawyer
+            age:
+              <30
+          maxim:
+            profesion:
+              driver
+            age:
+              <30
+          maxim:
+            profesion:
+              driver
+            age:
+              <30
+
+      third:
+        salary:
+          normal
+        employees:
+          olga:
+            profesion:
+              lawyer
+          ivan:
+            profesion:
+              builder
+          nikolai:
+            profession:
+              builder
+
+      fourth & fifth:
+        salary:
+          high
+        employees:
+          yuliya:
+            profession:
+              paperwork
+            age:
+              >30
+          yuliya:
+            profession:
+              paperwork
+            age:
+              >30
+          yuliya:
+            profession:
+              paperwork
+            age:
+              >30
+          yuliya:
+            profession:
+              paperwork
+            age:
+              >30
+
+      sixth:
+        salary:
+          normal
+        employees:
+          igor viktorovich:
+            profession:
+              security director
+            age:
+              >50
