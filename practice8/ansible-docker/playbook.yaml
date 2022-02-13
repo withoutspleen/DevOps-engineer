@@ -23,3 +23,10 @@
     docker_image:
        path: /tmp/docker/
        name: build
+
+  -name: Start container
+    docker_container:
+      name: build
+      volumes:
+      /tmp/webapps:/tmp/webapps
+
