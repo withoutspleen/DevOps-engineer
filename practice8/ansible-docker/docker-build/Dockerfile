@@ -6,5 +6,3 @@ RUN cd /tmp/; \
     cd boxfuse-sample-java-war-hello; \
     mvn package; \
 WORKDIR /tmp/webapps/
-
-EXPOSE 8080

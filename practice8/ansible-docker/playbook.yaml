@@ -10,7 +10,12 @@
       update_cache: yes
 
   -name: Copy container from localhost
-     copy:
-       src: /home/user/ansible-docker/docker-build/Dockerfile
-       dest: /tmp/docker/
-       mode: 0644
+    copy:
+      src: /home/user/ansible-docker/docker-build/Dockerfile
+      dest: /tmp/docker/
+      mode: 0644
+
+  -name: Build container
+    docker_image:
+       path: /tmp/docker/
+       name: build
