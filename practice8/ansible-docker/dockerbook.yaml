@@ -28,5 +28,12 @@
     docker_container:
       name: build
       image: build
-      volumes:
-        - /tmp/webapps:/tmp/webapps
+
+  - name: Copy artifact from container
+    shell: "mkdir /tmp/webapps; docker cp build:/tmp/boxfuse-sample-java-war-hello/target/hello-1.0.war /tmp/webapps"
+
+  - name: Fetch artifact from remote host
+    fetch:
+      src: /tmp/webapps/hello-1.0.war
+      dest: /tmp/webapps/
+      flat: yes
