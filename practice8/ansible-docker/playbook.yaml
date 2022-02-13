@@ -1,0 +1,16 @@
+---
+- name: Package artifact in Docker
+  hosts: build
+  become: yes
+
+  tasks:
+  - name: Install Docker
+    apt:
+      name: docker.io
+      update_cache: yes
+
+  -name: Copy container from localhost
+     copy:
+       src: /home/user/ansible-docker/docker-build/Dockerfile
+       dest: /tmp/docker/
+       mode: 0644
