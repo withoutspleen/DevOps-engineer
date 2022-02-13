@@ -9,24 +9,23 @@
       name: python3-pip
       update_cache: yes
 
-  -name: Install Docker
+  - name: Install Docker
     pip:
       name: docker
 
-  -name: Copy container from localhost
+  - name: Copy container from localhost
     copy:
       src: /home/user/ansible-docker/docker-build/Dockerfile
       dest: /tmp/docker/
       mode: 0644
 
-  -name: Build container
+  - name: Build container
     docker_image:
-       path: /tmp/docker/
-       name: build
+      path: /tmp/docker/
+      name: build
 
-  -name: Start container
+  - name: Start container
     docker_container:
       name: build
-      volumes:
-      /tmp/webapps:/tmp/webapps
+      volumes: /tmp/webapps:/tmp/webapps
 

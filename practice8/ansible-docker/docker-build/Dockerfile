@@ -6,4 +6,4 @@ RUN cd /tmp/; \
     cd boxfuse-sample-java-war-hello; \
     mvn package; \
     mkdir /tmp/webapps; \
-    cp /tmp/boxfuse-sample-java-war-hello/target/hello-1.0.war /tmp/webapps/ \
+    cp /tmp/boxfuse-sample-java-war-hello/target/hello-1.0.war /tmp/webapps/
