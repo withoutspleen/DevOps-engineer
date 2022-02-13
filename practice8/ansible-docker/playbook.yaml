@@ -4,10 +4,14 @@
   become: yes
 
   tasks:
-  - name: Install Docker
+  - name: Install pip
     apt:
-      name: docker.io
+      name: python3-pip
       update_cache: yes
+
+  -name: Install Docker
+    pip:
+      name: docker
 
   -name: Copy container from localhost
     copy:
