@@ -27,5 +27,6 @@
   - name: Start container
     docker_container:
       name: build
-      volumes: /tmp/webapps:/tmp/webapps
-
+      image: build
+      volumes:
+        - /tmp/webapps:/tmp/webapps
