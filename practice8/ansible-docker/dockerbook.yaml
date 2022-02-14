@@ -22,6 +22,7 @@
   hosts: build
   become: yes
 
+  tasks:
   - name: Copy container from localhost
     copy:
       src: /home/user/ansible-docker/docker-build/Dockerfile
@@ -52,6 +53,7 @@
   hosts: production
   become: yes
 
+  tasks:
   - name: Build container
     docker_container:
       name: production
