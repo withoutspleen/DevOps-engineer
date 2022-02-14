@@ -1,6 +1,6 @@
 ---
-- name: Package artifact in Docker
-  hosts: build
+- name: Prepare remote hosts for work with Docker
+  hosts: build, production
   become: yes
 
   tasks:
@@ -17,6 +17,10 @@
   - name: Install Docker API
     pip:
       name: docker
+
+- name: Package artifact in Docker
+  hosts: build
+  become: yes
 
   - name: Copy container from localhost
     copy:
@@ -47,21 +51,6 @@
 - name: Deploy artifact in docker
   hosts: production
   become: yes
-
-  tasks:
-  - name: Install pip
-    apt:
-      name: python3-pip
-      update_cache: yes
-
-  - name: Install docker
-    apt:
-      name: docker.io
-      update_cache: yes
-
-  - name: Install Docker API
-    pip:
-      name: docker
 
   - name: Build container
     docker_container:
