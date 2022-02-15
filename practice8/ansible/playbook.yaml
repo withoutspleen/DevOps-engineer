@@ -15,7 +15,15 @@
       dest: /tmp/boxfuse-sample-java-war-hello/
 
   - name: Package webapp
-    shell: cd /tmp/boxfuse-sample-java-war-hello/; mvn package; mkdir /tmp/webapps; cp /tmp/boxfuse-sample-java-war-hello/target/hello-1.0.war /tmp/webapps
+    shell: cd /tmp/boxfuse-sample-java-war-hello/; mvn package
+
+  - name: Copy artifact
+    command: "{{ item }}"
+    with_items:
+      - mkdir /tmp/webapps
+      - cp /tmp/boxfuse-sample-java-war-hello/target/hello-1.0.war /tmp/webapps
+    args:
+      creates: /tmp/webapps/hello-1.0.war
 
   - name: Fetch artifact from remote host
     fetch:
@@ -43,4 +51,4 @@
       src: /tmp/hello-1.0.war
       dest: /var/lib/tomcat9/webapps/
       mode: 0644
-...
+---
