@@ -1,0 +1,22 @@
+---
+- name: Prepare remote servers
+  hosts: build, production
+  become: yes
+
+  roles:
+    - docker-prepare
+
+- name: Build
+  hosts: build
+  become: yes
+
+  roles:
+    - docker-build
+
+- name: Prod
+  hosts: production
+  become: yes
+
+  roles:
+    - docker-prod
+...
