@@ -91,10 +91,10 @@ ansible-galaxy init common
 ---
 # tasks file for common
 - name: Ensure packages is present
-    apt:
-      name: ['tree', 'mc', 'htop', 'ncdu', 'links']
-      update_cache: yes
-      state: present
+  apt:
+    name: ['tree', 'mc', 'htop', 'ncdu', 'links']
+    update_cache: yes
+    state: present
 ```
 ### Роль webserver:
 
