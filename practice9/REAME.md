@@ -1,6 +1,6 @@
-###Содержимое всех затронутых мной файлов:
+### Содержимое всех затронутых мной файлов:
 ___
-###/roles/docker-prepare/tasks/main.yml:
+### /roles/docker-prepare/tasks/main.yml:
 ```yaml
 ---
 # tasks file for docker-prepare
@@ -17,7 +17,7 @@ ___
 ...
 ```
 ___
-###/roles/docker-build/tasks/main.yml:
+### /roles/docker-build/tasks/main.yml:
 ```yaml
 ---
 # tasks file for docker-build
@@ -45,7 +45,7 @@ ___
 ...
 ```
 ___
-###/roles/docker-build/files/Dockerfile:
+### /roles/docker-build/files/Dockerfile:
 ```dockerfile
 FROM maven:3.8.4-jdk-11 as build
 COPY . .
@@ -60,7 +60,7 @@ EXPOSE 8080
 COPY --from=build /tmp/boxfuse-sample-java-war-hello/target/ /var/lib/jetty/webapps/
 ```
 ___
-###/roles/docker-build/vars/main.yml:
+### /roles/docker-build/vars/main.yml:
 ```yaml
 ---
 # vars file for docker-prepare
@@ -68,7 +68,7 @@ docker_dir: /tmp/docker
 ...
 ```
 ___
-###/roles/docker-prod/tasks/main.yml:
+### /roles/docker-prod/tasks/main.yml:
 ```yaml
 ---
 # tasks file for docker-prod
