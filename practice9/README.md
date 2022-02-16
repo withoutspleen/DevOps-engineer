@@ -45,6 +45,7 @@
   vars:
     source_folder: ./dir
     dest_folder: /var/www/html
+    
   tasks:
   - name: Ensure nginx package is present
   apt:
@@ -61,3 +62,41 @@
   - name: restart nginx
     service: name=nginx state=restarted
 ```
+## Роли в Ansible
+[Roles - Ansible documentation](https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html)
+
+[Ansible Galaxy](https://galaxy.ansible.com/)
+
+Инициализация роли common:
+```shell
+mkdir roles
+cd roles/
+ansible-galaxy init common
+```
+Задачи задаются в файле `tasks.yml` по стандартному пути `roles/common/tasks/`. 
+Пример:
+```yaml
+---
+# tasks file for common
+- name: Ensure packages is present
+    apt:
+      name: ['tree', 'mc', 'htop', 'ncdu', 'links']
+      update_cache: yes
+      state: present
+---
+```
+Добавление роли для управления веб-серверами:
+```shell
+ansible-galaxy init webserver
+```
+Переменные задаются через файл `/roles/webserver/defaults/main.yaml`. Пример:
+```yaml
+---
+# defaults file for webserver
+dest_folder: /var/www/html
+```
+Папка `files` по пути `roles/webserver/` используется для хранения файлов необходимых для 
+передачи. Например index.html.
+
+Упрвление хендлерами через файл `/roles/webserver/handlers/main.yml`.
+
