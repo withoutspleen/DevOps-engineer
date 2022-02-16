@@ -86,7 +86,7 @@ ___
 ...
 ```
 ___
-### rolebook.yml:
+### /roles/rolebook.yml:
 ```yaml
 ---
 - name: Prepare remote servers
