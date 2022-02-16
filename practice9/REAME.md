@@ -1,4 +1,5 @@
-
+###Содержимое всех затронутых мной файлов:
+___
 ###/roles/docker-prepare/tasks/main.yml:
 ```yaml
 ---
