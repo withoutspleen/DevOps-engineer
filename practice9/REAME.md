@@ -111,3 +111,6 @@ ___
     - docker-prod
 ...
 ```
+___
+### Сами файлы [здесь](https://github.com/withoutspleen/DevOps-engineer/tree/main/practice9/roles)
+___
