@@ -1,9 +1,14 @@
 ---
 # tasks file for docker-prod
+- name: Log into DockerHub with token access
+  docker_login:
+    username: withoutspleen
+    password: fe95f4c1-8a35-41a3-b264-756d5c6cd7f1
+
 - name: Create container
   docker_container:
     name: production
-    image: withoutspleen/build-1:1.0
+    image: withoutspleen/build:1.0
     ports:
       - 8080:8080
 ...
