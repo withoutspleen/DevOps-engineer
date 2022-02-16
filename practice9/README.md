@@ -1,4 +1,7 @@
 ## Использование переменных и хэндлеров в ansible
+
+___
+
 Пример использования переменых для применения правильных пакетных менеджеров, в зависимости от 
 семейства ОС, а также хэндлера для перезапуска сервиса Apache:
 
@@ -20,6 +23,9 @@
 ```
 
 ## Использование шаблонов
+
+___
+
 Задание переменных для хостов в /etc/ansible/hosts:
 ```
 [web]
@@ -61,13 +67,19 @@
   handlers:
   - name: restart nginx
     service: name=nginx state=restarted
+---
 ```
 ## Роли в Ansible
+
+___
+
 [Roles - Ansible documentation](https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html)
 
 [Ansible Galaxy](https://galaxy.ansible.com/)
 
-Инициализация роли common:
+### Роль common:
+
+инициализация роли:
 ```shell
 mkdir roles
 cd roles/
@@ -85,7 +97,9 @@ ansible-galaxy init common
       state: present
 ---
 ```
-Добавление роли для управления веб-серверами:
+### Роль webserver:
+
+Инициализация роли:
 ```shell
 ansible-galaxy init webserver
 ```
@@ -94,9 +108,61 @@ ansible-galaxy init webserver
 ---
 # defaults file for webserver
 dest_folder: /var/www/html
+---
 ```
 Папка `files` по пути `roles/webserver/` используется для хранения файлов необходимых для 
 передачи. Например index.html.
 
-Упрвление хендлерами через файл `/roles/webserver/handlers/main.yml`.
+Упрвление хендлерами через файл `/roles/webserver/handlers/main.yml`
 
+### Роль sercurity:
+
+Создаем баннер для ssh сервиса в папке `files`:
+```text
+***********************************************
+This server is protected! Do not stupid things!
+***********************************************
+```
+Хендлер для перезапуска sshd:
+```yaml
+---
+# handlers file for security
+- name: restart sshd
+  service: name=sshd state=restarted
+---
+```
+Задачи для копирования баннера и изменения файла `sshd_config`:
+```yaml
+---
+# task file for security
+- name: copy banner
+  copy: src=banner dest=/etc/ssh
+
+- name: edit config
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    line: 'Banner /etc/ssh/banner'
+  notify: restart sshd
+---
+```
+### Плейбук использующий роли:
+```yaml
+---
+- name: web-server configuration
+  hosts: web
+  become: yes
+
+  roles:
+    - common
+    - webserver
+    - security
+ 
+- name: db configuration
+  hosts: db
+  become: yes
+
+  roles:
+    - common
+    - security
+---
+```
