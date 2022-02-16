@@ -1,0 +1,9 @@
+---
+# tasks file for docker-prod
+- name: Create container
+  docker_container:
+    name: production
+    image: withoutspleen/build-1:1.0
+    ports:
+      - 8080:8080
+...
