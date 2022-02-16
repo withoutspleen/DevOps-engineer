@@ -1,3 +1,6 @@
+___
+### Сами файлы [здесь](https://github.com/withoutspleen/DevOps-engineer/tree/main/practice9/roles)
+
 ### Содержимое всех затронутых мной файлов:
 ___
 ### /roles/docker-prepare/tasks/main.yml:
@@ -111,6 +114,4 @@ ___
     - docker-prod
 ...
 ```
-___
-### Сами файлы [здесь](https://github.com/withoutspleen/DevOps-engineer/tree/main/practice9/roles)
 ___
