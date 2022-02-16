@@ -1,0 +1,24 @@
+---
+# tasks file for docker-build
+- name: Ensure docker dir is present
+  ansible.builtin.file:
+    path: "{{ docker_dir }}"
+    state: directory
+
+- name: copy container
+  copy: src=Dockerfile dest={{ docker_dir }}
+
+- name: Log into DockerHub with token access
+  docker_login:
+    username: withoutspleen
+    password: fe95f4c1-8a35-41a3-b264-756d5c6cd7f1
+
+- name: Tag and push image
+  docker_image:
+    path: "{{ docker_dir }}"
+    name: withoutspleen/build-1
+    repository: withoutspleen/build
+    tag: 1.0
+    push: yes
+
+...

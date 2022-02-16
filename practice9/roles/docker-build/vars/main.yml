@@ -1,0 +1,3 @@
+---
+# vars file for docker-prepare
+docker_dir: /tmp/docker
