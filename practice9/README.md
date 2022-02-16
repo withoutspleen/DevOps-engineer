@@ -95,7 +95,6 @@ ansible-galaxy init common
       name: ['tree', 'mc', 'htop', 'ncdu', 'links']
       update_cache: yes
       state: present
----
 ```
 ### Роль webserver:
 
@@ -108,7 +107,6 @@ ansible-galaxy init webserver
 ---
 # defaults file for webserver
 dest_folder: /var/www/html
----
 ```
 Папка `files` по пути `roles/webserver/` используется для хранения файлов необходимых для 
 передачи. Например index.html.
@@ -129,7 +127,6 @@ This server is protected! Do not stupid things!
 # handlers file for security
 - name: restart sshd
   service: name=sshd state=restarted
----
 ```
 Задачи для копирования баннера и изменения файла `sshd_config`:
 ```yaml
@@ -143,7 +140,6 @@ This server is protected! Do not stupid things!
     dest: /etc/ssh/sshd_config
     line: 'Banner /etc/ssh/banner'
   notify: restart sshd
----
 ```
 ### Плейбук использующий роли:
 ```yaml
@@ -164,5 +160,4 @@ This server is protected! Do not stupid things!
   roles:
     - common
     - security
----
 ```
