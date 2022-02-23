@@ -1,7 +1,7 @@
 ### Установка Jenkins:
 ```shell
 apt update
-apt install openjdk-11-kre-headless curl -y
+apt install openjdk-11-jre-headless curl -y
 curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo tee \
   /usr/share/keyrings/jenkins-keyring.asc > /dev/null
 echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
