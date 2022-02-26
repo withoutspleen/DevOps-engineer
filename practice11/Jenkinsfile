@@ -1,0 +1,32 @@
+pipeline {
+    agent {
+        docker {
+            image 'build:latest'
+            args '-u root:sudo -v /root/.docker/config.json:/root/.docker/config.json -v /var/run/docker.sock:/var/run/docker.sock -v /root/.ssh/:/root/.ssh/'
+        }
+    }
+    stages {
+        stage ('package') {
+            steps {
+                git 'https://github.com/boxfuse/boxfuse-sample-java-war-hello'
+                sh 'mvn package'
+            }
+        }
+        stage ('build & push image') {
+            steps {
+                sh 'docker pull tomcat:jre8-alpine && docker run -itd --name test111 tomcat:jre8-alpine && docker cp /var/lib/jenkins/workspace/pipeline-11/target/hello-1.0.war test111:/usr/local/tomcat/webapps'
+                sh 'docker commit test111 35.202.156.190:8123/artifact && docker push 35.202.156.190:8123/artifact'
+                sh 'docker stop test111 && docker rm test111'
+            }
+        }
+        stage ('deploy to prod machine') {
+            steps {
+                 sh '''ssh -i /root/.ssh/gcp -T root@34.135.15.237 << EOF
+                 docker pull 35.202.156.190:8123/artifact
+                 cd /root
+                 docker-compose up -d
+EOF'''
+            }
+        }
+    }
+}
