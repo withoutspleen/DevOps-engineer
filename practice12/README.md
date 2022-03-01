@@ -1,4 +1,4 @@
-## Упаковка устаревшего приложения в Maven:
+## Сборка устаревшего приложения в Maven:
 
 ---
 Исправляем файл pom.xml, в частности устаревшие, отсутствующие в [репозитории](https://mvnrepository.com/), зависимости. 
@@ -97,3 +97,4 @@ app42.paas.db.password = db-password
 app42.paas.db.ip = db-service-name
 app42.paas.db.name = db-name
 ```
+
