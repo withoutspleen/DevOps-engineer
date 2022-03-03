@@ -2,25 +2,24 @@
  - name: provisioning EC2 instances
    hosts: localhost
    connection: local
-   gather_facts: False
+
 
    vars:
      keypair: MyKey1
      instance_type: t2.micro
-     image: ami-092cce4a19b438926
+     image: ami-04505e74c0741db8d
      wait: yes
      group: test
      count: 1
-     region: eu-north-1
+     region: us-east-1
      security_group: my-sec-group-1
 
    tasks:
 
     - name: Create security group
-      local_action:
-        module: ec2_group
+      ec2_group:
         name: "{{ security_group }}"
-        description: Security Group for test Servers
+        description: Security group for test servers
         region: "{{ region }}"
         rules:
           - proto: tcp
@@ -35,27 +34,36 @@
             from_port: 80
             to_port: 80
             cidr_ip: 0.0.0.0/0
-        rules_egress:
-            proto: all
-            cidr_ip: 0.0.0.0/0
+#        rules_egress:
+#            proto: all
+#            cidr_ip: 0.0.0.0/0
       register: basic_firewall
-    - name: create keypair
-      local_action:
-        module: ec2_key
-          name: {{ keypair }}
+
+    - name: Create keypair
+      ec2_key:
+        name: "{{ keypair }}"
+        region: "{{ region }}"
+        key_material: "{{ item }}"
+      with_file: /root/.ssh/MyKey1.pub
+
     - name: Lauch EC2 instance
-      local_action: ec2
-                    group={{ security_group }}
-                    instance_type={{ instance_type }}
-                    image={{ image }}
-                    wait=true
-                    region={{ region }}
-                    keypair={{ keypair }}
-                    count={{ count }}
+      ec2:
+        group={{ security_group }}
+        instance_type={{ instance_type }}
+        image={{ image }}
+        wait=true
+        region={{ region }}
+        keypair={{ keypair }}
+        count={{ count }}
       register: ec2
+
     - name: Add tagging to EC2 instance
-    local_action: ec2_tag resource={{ item.id }} region={{ region }} state=present
-    with_items: "{{ ec2.instance }}"
-    args:
-      tags:
-        Name: BuildEc2Instance
+      ec2_tag:
+        resource= "{{ item.id }}"
+        region= "{{ region }}"
+        state=present
+      with_items:
+        - "{{ ec2.instances }}"
+
+
+
