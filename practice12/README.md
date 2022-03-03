@@ -98,18 +98,3 @@ app42.paas.db.ip = db-service-name
 app42.paas.db.name = db-name
 ```
 
-apt install mysql-server
-
-default port 3306
-
-CREATE DATABASE app42;
-
-CREATE USER 'app42-admin'@'localhost' IDENTIFIED BY '123456';
-
-GRANT ALL PRIVILEGES ON app42.* TO 'app42-admin'@'localhost';
-
-FLUSH PRIVILEGES;
-
-wget https://downloads.mysql.com/archives/get/p/23/file/mysql-server_8.0.27-1debian11_amd64.deb-bundle.tar
-
-
