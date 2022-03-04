@@ -70,7 +70,6 @@
     - name: Add instance in hosts as build
       add_host:
         name: "{{ ec2.instances[0].public_ip }}"
-
     - name: Add instance in hosts as prod
       add_host:
         name: "{{ ec2.instances[1].public_ip }}"
