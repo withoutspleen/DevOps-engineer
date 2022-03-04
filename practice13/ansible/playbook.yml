@@ -137,6 +137,10 @@
          name: tomcat9
          state: present
          update_cache: yes
+     - name: List bucket
+       aws_s3:
+         bucket: practicebacket.test1.com
+         mode: list
      - name: Get artifact from backet
        aws_s3:
          bucket: practicebacket.test1.com
