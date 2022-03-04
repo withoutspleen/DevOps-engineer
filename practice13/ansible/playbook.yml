@@ -61,9 +61,9 @@
         keypair={{ keypair }}
         count={{ count }}
       register: ec2_instance
-     - name: debug
-       debug:
-         var: ec_instance[0].public_ip
+    - name: debug
+      debug:
+        var: ec2_instance[0].public_ip
 #    - name: Add instance in hosts as build
 #      add_host:
 #        name: "{{ item.public_ip }}"
