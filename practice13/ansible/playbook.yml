@@ -148,7 +148,7 @@
        aws_s3:
          bucket: practicebacket.test1.com
          object: /webapp/hello-1.0.war
-         dest: /var/lib/tomcat9/hello-1.0.war
+         dest: /var/lib/tomcat9/
          mode: get
      - name: Restart tomcat
        ansible.builtin.service:
