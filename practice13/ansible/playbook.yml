@@ -70,14 +70,14 @@
     - name: Add instance in hosts as build
       add_host:
         name: "{{ ec2.instances[0].public_ip }}"
-        groups: aws_build
+
     - name: Add instance in hosts as prod
       add_host:
         name: "{{ ec2.instances[1].public_ip }}"
-        groups: aws_prod
+
 
  - name: Build webapp
-   hosts: aws_build
+   hosts: "{{ ec2.instances[0].public_ip }}"
    remote_user: ubuntu
    become: yes
    become_user: root
@@ -102,7 +102,7 @@
          mode: put
 
  - name: Deploy app in prod
-   hosts: aws_prod
+   hosts: "{{ ec2.instances[1].public_ip }}"
    remote_user: ubuntu
    become: yes
    become_user: root
