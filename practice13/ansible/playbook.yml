@@ -141,6 +141,9 @@
        aws_s3:
          bucket: practicebacket.test1.com
          mode: list
+    - name: Wait 15 seconds
+      pause:
+        seconds: 15
      - name: Get artifact from bucket
        aws_s3:
          bucket: practicebacket.test1.com
