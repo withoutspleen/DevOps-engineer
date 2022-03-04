@@ -1,8 +1,12 @@
 ## Ansible playbook для работы с AWS:
 
-#### Сам [плейбук](https://github.com/withoutspleen/DevOps-engineer/blob/main/practice13/ansible/playbook.yml)
+---
 
-#### Подготовка среды для правильной работы с плейбуком:
+### Сам [playbook.yml](https://github.com/withoutspleen/DevOps-engineer/blob/main/practice13/ansible/playbook.yml)
+
+---
+
+### Подготовка среды для правильной работы с плейбуком:
 ```shell
 apt install awscli
 aws configure
