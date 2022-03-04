@@ -79,6 +79,13 @@
       pause:
         seconds: 20
 
+ - name: prepare instances for work
+   hosts: build, prod
+   remote_user: ubuntu
+   become: yes
+   become_user: root
+# Install python, python3-pip, pip install boto & boto3
+
  - name: Build webapp
    hosts: build
    remote_user: ubuntu
