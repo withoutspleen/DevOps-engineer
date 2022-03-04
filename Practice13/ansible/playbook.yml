@@ -22,8 +22,12 @@
 #        key_material: "{{ item }}"
 #      with_file: /root/.ssh/MyKey1.pub
       register: ec2_key
+
     - name: Save private key
-      copy: content="{{ ec2_key.key.private_key }}" dest=".ssh/id_rsa" node=0600
+      copy:
+        content: "{{ ec2_key.key.private_key }}"
+        dest: "/root/.ssh/aws.pem"
+        mode: 0600
       when: ec2_key.changed
     - name: Create security group
       ec2_group:
@@ -47,7 +51,7 @@
 #            proto: all
 #            cidr_ip: 0.0.0.0/0
       register: basic_firewall
-    - name: Lauch EC2 instance
+    - name: Lauch EC2 instances
       ec2:
         group={{ security_group }}
         instance_type={{ instance_type }}
@@ -59,11 +63,11 @@
       register: ec2_instance
     - name: Add instance in hosts as build
       add_host:
-        name: "{{ ec2_instance[0}.public_ip }}"
+        name: "{{ ec2_instance[0].public_ip }}"
         groups: aws-build
     - name: Add instance in hosts as prod
       add_host:
-        name: "{{ ec2_instance[1].public_ip }}"
+        name: "{{ ec2_instance[1].public_ip_address }}"
         groups: aws-prod
 
  - name: Build webapp
@@ -106,5 +110,4 @@
          dest: /usr/local/tomcat/webapps/
          mode: get
 
-
-
+...
