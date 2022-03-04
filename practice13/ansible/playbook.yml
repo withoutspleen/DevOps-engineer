@@ -84,7 +84,16 @@
    remote_user: ubuntu
    become: yes
    become_user: root
-# Install python, python3-pip, pip install boto & boto3
+
+   tasks:
+     - name: install pip
+       apt:
+         name: ['python', 'python3-pip']
+         state: present
+         update_cache: yes
+     - name: install boto
+       pip:
+         name: ['boto', 'boto3']
 
  - name: Build webapp
    hosts: build
