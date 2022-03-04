@@ -67,15 +67,17 @@
     - name: Add instance in hosts as build
       add_host:
         name: "{{ ec2.instances[0].public_ip }}"
-        groups: aws-build
+        groups: aws_build
     - name: Add instance in hosts as prod
       add_host:
         name: "{{ ec2.instances[1].public_ip }}"
-        groups: aws-prod
+        groups: aws_prod
 
  - name: Build webapp
    hosts: build
+   remote_user: ubuntu
    become: yes
+   become_user: root
 
    tasks:
      - name: install maven
@@ -98,7 +100,9 @@
 
  - name: Deploy app in prod
    hosts: prod
+   remote_user: ubuntu
    become: yes
+   become_user: root
 
    tasks:
      - name: install tomcat
