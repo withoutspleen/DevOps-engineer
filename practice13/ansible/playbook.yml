@@ -60,7 +60,7 @@
         region={{ region }}
         keypair={{ keypair }}
         count={{ count }}
-      register: ec2_instance
+      register: ec2
     - name: debug
       debug:
         var: ec2.instances[0].public.ip
