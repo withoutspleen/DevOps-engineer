@@ -137,18 +137,18 @@
          name: tomcat9
          state: present
          update_cache: yes
-     - name: List bucket
-       aws_s3:
-         bucket: practicebacket.test1.com
-         mode: list
-     - name: Wait 15 seconds
-       pause:
-         seconds: 15
+#     - name: List bucket
+#       aws_s3:
+#         bucket: practicebacket.test1.com
+#         mode: list
+#     - name: Wait 15 seconds
+#       pause:
+#         seconds: 15
      - name: Get artifact from bucket
        aws_s3:
          bucket: practicebacket.test1.com
          object: /webapp/hello-1.0.war
-         dest: /usr/local/tomcat/webapps/hello-1.0.war
+         dest: /tmp/hello-1.0.war
          mode: get
      - name: Restart tomcat
        ansible.builtin.service:
