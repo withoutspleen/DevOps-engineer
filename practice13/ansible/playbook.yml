@@ -63,14 +63,14 @@
       register: ec2
     - name: debug
       debug:
-        var: ec2.instances[0].public.ip
+        var: ec2.instances[0].public_ip
     - name: Add instance in hosts as build
       add_host:
         name: "{{ ec2.instances[0].public_ip }}"
         groups: aws-build
     - name: Add instance in hosts as prod
       add_host:
-        name: "{{ ec2_instance[1].public_ip }}"
+        name: "{{ ec2.instances[1].public_ip }}"
         groups: aws-prod
 
  - name: Build webapp
