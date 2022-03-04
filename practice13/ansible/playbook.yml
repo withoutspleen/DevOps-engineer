@@ -75,9 +75,9 @@
       add_host:
         name: "{{ ec2.instances[1].public_ip }}"
 
-
  - name: Build webapp
-   hosts: "{{ ec2.instances[0].public_ip }}"
+   hosts:
+     var: "{{ ec2.instances[0].public_ip }}"
    remote_user: ubuntu
    become: yes
    become_user: root
