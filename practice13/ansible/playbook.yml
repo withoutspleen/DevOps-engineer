@@ -26,7 +26,7 @@
     - name: Save private key
       copy:
         content: "{{ ec2_key.key.private_key }}"
-        dest: "/root/.ssh/id_rsa"
+        dest: "~/.ssh/id_rsa"
         mode: 0600
       when: ec2_key.changed
     - name: Create security group
@@ -94,6 +94,11 @@
      - name: install boto
        pip:
          name: ['boto', 'boto3']
+     - name: Copy credentials from localhost
+       copy:
+         src: ~/.aws/credentials
+         dest: ~/.aws/
+         mode: 0644
 
  - name: Build webapp
    hosts: build
