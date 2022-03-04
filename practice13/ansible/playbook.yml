@@ -79,7 +79,7 @@
       pause:
         seconds: 20
 
- - name: prepare instances for work
+ - name: Prepare instances
    hosts: build, prod
    remote_user: ubuntu
    become: yes
@@ -143,3 +143,7 @@
          object: /webapp/hello-1.0.war
          dest: /usr/local/tomcat/webapps/hello-1.0.war
          mode: get
+     - name: Restart tomcat
+       ansible.builtin.service:
+         name: tomcat
+         state: restarted
