@@ -63,7 +63,7 @@
       register: ec2_instance
     - name: debug
       debug:
-        var: ec2_instance.public_ip
+        var: ec2_instance
 #    - name: Add instance in hosts as build
 #      add_host:
 #        name: "{{ item.public_ip }}"
