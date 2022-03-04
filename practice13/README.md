@@ -1,7 +1,8 @@
 ## Ansible playbook для работы с AWS:
 
----
-Подготовка среды для правильной работы с плейбуком:
+#### Сам [плейбук](https://github.com/withoutspleen/DevOps-engineer/blob/main/practice13/ansible/playbook.yml)
+
+#### Подготовка среды для правильной работы с плейбуком:
 ```shell
 apt install awscli
 aws configure
@@ -13,11 +14,18 @@ aws configure
 Только после этого устанавливаются следующие пакеты:
 ```shell
 apt update && \
-apt install ansible python3-pip -y && \
-pip install boto3 boto
+apt install ansible python3 python3-pip -y && \
+pip install boto3 boto botocore
 ```
 Далее нужно отредактировать конфигурационный файл ansible
 ```shell
 nano /etc/ansible/ansible.cfg
 ```
 Найти и раскоментировать `host_key_checking = False`
+
+---
+## Screenshots:
+
+![](IMG/moba1.png?raw=true)
+
+![](IMG/moba2.png?raw=true)
