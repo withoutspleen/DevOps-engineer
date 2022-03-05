@@ -9,7 +9,7 @@ terraform {
 
 provider "google" {
   credentials = file("gcp-creds.json")
-  project     = "master-imagery-335207 "
+  project     = "master-imagery-335207"
   region      = "us-central1"
   zone        = "us-central1-a"
 }
