@@ -17,6 +17,7 @@ provider "google" {
 resource "google_compute_instance" "test" {
   name = "test1"
   machine_type = "e2-small"
+  zone = "us-central1-a"
   boot_disk {
     initialize_params {
       image = "ubuntu-os-cloud/ubuntu-2004-lts"
