@@ -35,7 +35,7 @@ resource "google_compute_firewall" "tomcat" {
 }
 
 resource "google_compute_instance" "test" {
-  name = "test1"
+  name = "build"
   machine_type = "e2-small"
   zone = "us-central1-a"
   boot_disk {
@@ -46,15 +46,16 @@ resource "google_compute_instance" "test" {
   network_interface {
     network = "default"
   }
-metadata_startup_script = <<EOF
-#!/bin/bash
-apt update -y
-apt install maven git -y
-cd /tmp/
-git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
-cd boxfuse-sample-java-war-hello
-mvn package
-EOF
+  metadata = {
+    startup-script = <<-EOF
+  apt update
+  apt install maven git -y
+  cd /tmp/
+  git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
+  cd boxfuse-sample-java-war-hello
+  mvn package
+  EOF
+  }
 
 depends_on = [google_project_service.api, google_compute_firewall.tomcat]
   }
