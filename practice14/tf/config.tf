@@ -16,7 +16,9 @@ provider "google" {
 
 resource "google_project_service" "api" {
   for_each = toset ([
-   " serviceusage.googleapis.com " ])
+   "cloudresourcemanager.googleapis.com",
+   "compute.googleapis.com"
+  ])
   disable_on_destroy = false
   service = each.value
 }
