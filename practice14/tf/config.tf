@@ -34,7 +34,7 @@ resource "google_compute_firewall" "tomcat" {
 
 }
 
-resource "google_compute_instance" "test" {
+resource "google_compute_instance" "build" {
   name = "build"
   machine_type = "e2-small"
   zone = "us-central1-a"
