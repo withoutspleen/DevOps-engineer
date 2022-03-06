@@ -19,7 +19,8 @@ aws configure
 ```shell
 apt update && \
 apt install ansible python3-pip -y && \
-pip install boto3
+pip install boto3 boto &&
+pip3 install --upgrade awscli
 ```
 Далее нужно отредактировать конфигурационный файл ansible
 ```shell
