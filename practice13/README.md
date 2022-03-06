@@ -8,7 +8,7 @@
 
 ### Подготовка среды для правильной работы с плейбуком:
 ```shell
-apt install awscli
+apt install awscli -y &&
 aws configure
 # access key
 # secret key
