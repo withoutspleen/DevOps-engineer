@@ -54,5 +54,5 @@ cd boxfuse-sample-java-war-hello
 mvn package
 EOF
 
-depends_on = [google_project_service.api, google_compute_firewall.web]
+depends_on = [google_project_service.api, google_compute_firewall.tomcat]
   }
