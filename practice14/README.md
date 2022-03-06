@@ -17,7 +17,7 @@ curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-
 3. Распаковать архив, запустить `install.sh`:
 ```shell
 tar -xf google-cloud-sdk-375.0.0-linux-x86_64.tar.gz && \
-rm google-cloud-sdk-375.0.0-linux-x86_64.tar.gz && \
+rm google-cloud-sdk-375.0.0-linux-x86_64.tar.gz
 ```
 ```shell
 ./google-cloud-sdk/install.sh
