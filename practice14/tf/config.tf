@@ -44,7 +44,6 @@ resource "google_compute_instance" "test" {
   network_interface {
     network = "default"
   }
-}
 metadata_startup_script = <<EOF
 #!/bin/bash
 apt update -y
@@ -56,3 +55,4 @@ mvn package
 EOF
 
 depends_on = [google_project_service.api, google_compute_firewall.web]
+  }
