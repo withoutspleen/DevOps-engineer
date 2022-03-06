@@ -48,12 +48,12 @@ resource "google_compute_instance" "test" {
   }
   metadata = {
     startup-script = <<-EOF
-  apt update
-  apt install maven git -y
+  sudo apt update
+  sudo apt install maven git -y
   cd /tmp/
-  git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
-  cd boxfuse-sample-java-war-hello
-  mvn package
+  sudo git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
+  sudo cd boxfuse-sample-java-war-hello
+  sudo mvn package
   EOF
   }
 
