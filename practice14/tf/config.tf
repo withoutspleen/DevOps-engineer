@@ -50,9 +50,9 @@ resource "google_compute_instance" "build" {
     startup-script = <<-EOF
   sudo apt update
   sudo apt install maven git -y
-  cd /tmp/
-  sudo git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
-  sudo cd boxfuse-sample-java-war-hello
+  cd ~
+  git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
+  cd boxfuse-sample-java-war-hello
   sudo mvn package
   EOF
   }
