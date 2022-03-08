@@ -46,14 +46,15 @@ resource "google_compute_instance" "build" {
   }
   network_interface {
     network = "default"
+    access_config {}
   }
   metadata = {
     startup-script = <<-EOF
-  sudo apt update
-  sudo apt install maven git -y
+  apt update
+  apt install maven git -y
   cd ~
   git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
-  sudo cd boxfuse-sample-java-war-hello
+  cd boxfuse-sample-java-war-hello
   mvn package
   EOF
   }
