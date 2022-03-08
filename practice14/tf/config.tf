@@ -38,6 +38,7 @@ resource "google_compute_instance" "build" {
   name = "build"
   machine_type = "e2-small"
   zone = "us-central1-a"
+  tags = ["http-server","https-server"]
   boot_disk {
     initialize_params {
       image = "ubuntu-os-cloud/ubuntu-2004-lts"
@@ -48,11 +49,11 @@ resource "google_compute_instance" "build" {
   }
   metadata = {
     startup-script = <<-EOF
-  apt update
-  apt install maven git -y
+  sudo apt update
+  sudo apt install maven git -y
   cd ~
   git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
-  cd boxfuse-sample-java-war-hello
+  sudo cd boxfuse-sample-java-war-hello
   mvn package
   EOF
   }
