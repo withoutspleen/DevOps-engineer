@@ -23,16 +23,16 @@ resource "google_project_service" "api" {
   service = each.value
 }
 
-resource "google_compute_firewall" "tomcat" {
-  name    = "tomcat-access"
-  network = "default"
-  source_ranges = ["0.0.0.0/0"]
-  allow {
-    protocol = "tcp"
-    ports = ["8080", "443", "22", "80"]
-  }
-
-}
+#resource "google_compute_firewall" "tomcat" {
+#  name    = "tomcat-access"
+#  network = "default"
+#  source_ranges = ["0.0.0.0/0"]
+#  allow {
+#    protocol = "tcp"
+#    ports = ["8080", "443", "22", "80"]
+#  }
+#
+#}
 
 resource "google_compute_instance" "build" {
   name = "build"
@@ -59,5 +59,6 @@ resource "google_compute_instance" "build" {
   EOF
   }
 
-depends_on = [google_project_service.api, google_compute_firewall.tomcat]
+depends_on = [google_project_service.api#, google_compute_firewall.tomcat
+]
   }
