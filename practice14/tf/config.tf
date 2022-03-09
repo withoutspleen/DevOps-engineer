@@ -72,7 +72,7 @@ resource "google_compute_instance" "build" {
   }
 
   provisioner "remote-exec" {
-    script      = "test.sh"
+    script      = "build.sh"
 
     connection {
       type        = "ssh"
