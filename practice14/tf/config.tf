@@ -51,10 +51,10 @@ resource "google_compute_instance" "build" {
     access_config {}
   }
 
-#  metadata = {
-#    ssh-keys       = "withoutspleen:${file("~/.gcp/gcp-key.pub")}"
+  metadata = {
+    ssh-keys       = "withoutspleen:${file("~/.gcp/gcp-key.pub")}"
 #    startup-script = file("build.sh")
-#  }
+  }
 
   provisioner "file" {
     source      = "~/.gcp/gcp-creds.json"
