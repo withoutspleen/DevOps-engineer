@@ -76,7 +76,7 @@ resource "google_compute_instance" "build" {
       user        = "withoutspleen"
       private_key = file("~/.ssh/gcp-key")
       agent       = "false"
-      host        = self.public_ip
+      host        = self.network_interface[0].access_config[0].nat_ip
     }
   }
 
