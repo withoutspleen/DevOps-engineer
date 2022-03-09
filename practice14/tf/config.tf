@@ -60,24 +60,32 @@ resource "google_compute_instance" "build" {
     source      = "~/.gcp/gcp-creds.json"
     destination = "/tmp/gcp-creds.json"
 
-#    connection {
-#      type        = "ssh"
-#      user        = "withoutspleen"
-#      private_key = file("~/.ssh/gcp-key")
-#      agent       = "false"
-#      host        = self.network_interface[0].access_config[0].nat_ip
-#    }
+    connection {
+      type        = "ssh"
+      user        = "withoutspleen"
+      private_key = file("~/.ssh/gcp-key")
+      agent       = "false"
+      host        = self.network_interface[0].access_config[0].nat_ip
+    }
   }
 
   provisioner "remote-exec" {
     script      = file("build.sh")
+
+    connection {
+      type        = "ssh"
+      user        = "withoutspleen"
+      private_key = file("~/.ssh/gcp-key")
+      agent       = "false"
+      host        = self.network_interface[0].access_config[0].nat_ip
+    }
   }
 
   depends_on = [google_project_service.api, google_compute_firewall.tomcat]
 }
 
 ### PRODUCTION INSTANCE ###
-#resource "google_compute_instance" "build" {
+#resource "google_compute_instance" "production" {
 #  name         = "build"
 #  machine_type = "e2-small"
 #  zone         = "us-central1-a"
