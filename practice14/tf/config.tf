@@ -68,16 +68,17 @@ resource "google_compute_instance" "build" {
   }
 
     provisioner "file" {
-    source = "~/.gcp/gcp-creds.json"
-    destination = "/tmp/gcp-creds.json"
-  }
+      source      = "~/.gcp/gcp-creds.json"
+      destination = "/tmp/gcp-creds.json"
 
-  connection {
-    type = "ssh"
-    user = "withoutspleen"
-    private_key = file("~/.ssh/gcp-key")
-    agent = "false"
-  }
+      connection {
+        type        = "ssh"
+        user        = "withoutspleen"
+        private_key = file("~/.ssh/gcp-key")
+        agent       = "false"
+      }
+    }
+
 
 depends_on = [google_project_service.api, google_compute_firewall.tomcat]
   }
