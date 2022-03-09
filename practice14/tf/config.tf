@@ -38,7 +38,7 @@ resource "google_compute_instance" "build" {
   name = "build"
   machine_type = "e2-small"
   zone = "us-central1-a"
-  tags = ["http-server","https-server"]
+#  tags = ["http-server","https-server"]
   boot_disk {
     initialize_params {
       image = "ubuntu-os-cloud/ubuntu-2004-lts"
@@ -48,7 +48,9 @@ resource "google_compute_instance" "build" {
     network = "default"
     access_config {}
   }
+
   metadata = {
+    ssh-keys = "withoutspleen:${file("~/.gcp/gcp-key.pub")}"
     startup-script = <<-EOF
   apt update
   apt install maven git -y
@@ -61,8 +63,20 @@ resource "google_compute_instance" "build" {
   curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
   apt update
   apt install google-cloud-cli -y
-  gsutil cp hello-1.0.war gs://test-bucket-practice/
+  gsutil cp target/hello-1.0.war gs://test-bucket-practice/
   EOF
+  }
+
+    provisioner "file" {
+    source = "~/.gcp/gcp-creds.json"
+    destination = "/tmp/gcp-creds.json"
+  }
+
+  connection {
+    type = "ssh"
+    user = "withoutspleen"
+    private_key = file("~/.ssh/gcp-key")
+    agent = "false"
   }
 
 depends_on = [google_project_service.api, google_compute_firewall.tomcat]
