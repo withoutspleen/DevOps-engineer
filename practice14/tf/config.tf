@@ -34,6 +34,8 @@ resource "google_compute_firewall" "tomcat" {
 
 }
 
+## BUILD INSTANCE ###
+
 resource "google_compute_instance" "build" {
   name         = "build"
   machine_type = "e2-small"
@@ -49,43 +51,29 @@ resource "google_compute_instance" "build" {
     access_config {}
   }
 
-  metadata = {
-    ssh-keys       = "withoutspleen:${file("~/.gcp/gcp-key.pub")}"
-    startup-script = file("build.sh")
-#    <<-EOF
-#  apt update
-#  apt install maven git -y
-#  cd /tmp
-#  git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
-#  cd boxfuse-sample-java-war-hello
-#  mvn package
-#  apt install apt-transport-https ca-certificates gnupg -y
-#  echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-#  curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-#  apt update
-#  apt install google-cloud-cli -y
-#  yes | gcloud auth login --cred-file=/tmp/gcp-creds.json
-#  gsutil cp target/hello-1.0.war gs://test-bucket-practice/
-#  EOF
-  }
+#  metadata = {
+#    ssh-keys       = "withoutspleen:${file("~/.gcp/gcp-key.pub")}"
+#    startup-script = file("build.sh")
+#  }
 
   provisioner "file" {
     source      = "~/.gcp/gcp-creds.json"
     destination = "/tmp/gcp-creds.json"
 
-    connection {
-      type        = "ssh"
-      user        = "withoutspleen"
-      private_key = file("~/.ssh/gcp-key")
-      agent       = "false"
-      host        = self.network_interface[0].access_config[0].nat_ip
-    }
+#    connection {
+#      type        = "ssh"
+#      user        = "withoutspleen"
+#      private_key = file("~/.ssh/gcp-key")
+#      agent       = "false"
+#      host        = self.network_interface[0].access_config[0].nat_ip
+#    }
   }
 
 
   depends_on = [google_project_service.api, google_compute_firewall.tomcat]
 }
 
+### PRODUCTION INSTANCE ###
 #resource "google_compute_instance" "build" {
 #  name         = "build"
 #  machine_type = "e2-small"
