@@ -1,4 +1,7 @@
-## Установка Google Cloud CLI
+## [Манифест](https://github.com/withoutspleen/DevOps-engineer/blob/main/practice14/tf/config.tf)
+
+---
+## Установка Google Cloud CLI:
 
 [Official installing page](https://cloud.google.com/sdk/docs/install#linux
 )
