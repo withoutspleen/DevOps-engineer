@@ -12,3 +12,4 @@ sudo apt update
 sudo apt install google-cloud-cli -y
 sudo yes | gcloud auth login --cred-file=/tmp/gcp-creds.json
 sudo gsutil cp target/hello-1.0.war gs://test-bucket-practice/
+exit

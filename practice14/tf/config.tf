@@ -23,7 +23,7 @@ resource "google_project_service" "api" {
   service = each.value
 }
 
-resource "google_compute_firewall" "tomcat" {
+resource "google_compute_firewall" "web" {
   name    = "tomcat-access"
   network = "default"
   source_ranges = ["0.0.0.0/0"]
@@ -34,13 +34,15 @@ resource "google_compute_firewall" "tomcat" {
 
 }
 
-## BUILD INSTANCE ###
+##
+## BUILD INSTANCE
+##
 
 resource "google_compute_instance" "build" {
   name         = "build"
   machine_type = "e2-small"
   zone         = "us-central1-a"
-  #  tags = ["http-server","https-server"]
+  # for default firewall use  tags = ["http-server","https-server"]
   boot_disk {
     initialize_params {
       image = "ubuntu-os-cloud/ubuntu-2004-lts"
@@ -53,7 +55,7 @@ resource "google_compute_instance" "build" {
 
   metadata = {
     ssh-keys       = "withoutspleen:${file("~/.gcp/gcp-key.pub")}"
-#    startup-script = file("build.sh")
+    # for startup script use startup-script = file("build.sh")
   }
 
   provisioner "file" {
@@ -81,43 +83,57 @@ resource "google_compute_instance" "build" {
     }
   }
 
-  depends_on = [google_project_service.api, google_compute_firewall.tomcat]
+  depends_on = [google_project_service.api, google_compute_firewall.web]
 }
 
-### PRODUCTION INSTANCE ###
-#resource "google_compute_instance" "production" {
-#  name         = "production"
-#  machine_type = "e2-small"
-#  zone         = "us-central1-a"
-#  #  tags = ["http-server","https-server"]
-#  boot_disk {
-#    initialize_params {
-#      image = "ubuntu-os-cloud/ubuntu-2004-lts"
-#    }
-#  }
-#  network_interface {
-#    network = "default"
-#    access_config {}
-#  }
-#
-#    metadata = {
-#    ssh-keys       = "withoutspleen:${file("~/.gcp/gcp-key.pub")}"
-#    startup-script =
-#  }
-#
-#  provisioner "file" {
-#    source      = "~/.gcp/gcp-creds.json"
-#    destination = "/tmp/gcp-creds.json"
-#
-#    connection {
-#      type        = "ssh"
-#      user        = "withoutspleen"
-#      private_key = file("~/.ssh/gcp-key")
-#      agent       = "false"
-#      host        = self.network_interface[0].access_config[0].nat_ip
-#    }
-#  }
-#
-#
-#  depends_on = [google_project_service.api, google_compute_firewall.tomcat]
-#}
+##
+## PRODUCTION INSTANCE
+##
+
+resource "google_compute_instance" "production" {
+  name         = "production"
+  machine_type = "e2-small"
+  zone         = "us-central1-a"
+  # for default firewall use  tags = ["http-server","https-server"]
+  boot_disk {
+    initialize_params {
+      image = "ubuntu-os-cloud/ubuntu-2004-lts"
+    }
+  }
+  network_interface {
+    network = "default"
+    access_config {}
+  }
+
+  metadata = {
+    ssh-keys       = "withoutspleen:${file("~/.gcp/gcp-key.pub")}"
+    # for startup script use startup-script = file("prod.sh")
+  }
+
+  provisioner "file" {
+    source      = "~/.gcp/gcp-creds.json"
+    destination = "/tmp/gcp-creds.json"
+
+    connection {
+      type        = "ssh"
+      user        = "withoutspleen"
+      private_key = file("~/.ssh/gcp-key")
+      agent       = "false"
+      host        = self.network_interface[0].access_config[0].nat_ip
+    }
+  }
+
+  provisioner "remote-exec" {
+    script      = "prod.sh"
+
+    connection {
+      type        = "ssh"
+      user        = "withoutspleen"
+      private_key = file("~/.ssh/gcp-key")
+      agent       = "false"
+      host        = self.network_interface[0].access_config[0].nat_ip
+    }
+  }
+
+  depends_on = [google_project_service.api, google_compute_firewall.web]
+}
