@@ -9,4 +9,3 @@ apt install google-cloud-cli -y
 yes | gcloud auth login --cred-file=/tmp/gcp-creds.json
 gsutil cp gs://test-bucket-practice/hello-1.0.war /var/lib/tomcat9/webapps/
 service tomcat restart
-exit
