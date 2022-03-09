@@ -5,6 +5,8 @@
 
 [Official startup page](https://cloud.google.com/sdk/gcloud/reference/topic/startup)
 
+#### Универсальная установка для Linux x64
+
 1. Установить python 3:
 ```shell
 apt update && \
@@ -27,6 +29,26 @@ rm google-cloud-sdk-375.0.0-linux-x86_64.tar.gz
 gcloud init
 # ./google-cloud-sdk/bin/gcloud init
 ```
+
+#### Установка Debuan/Ubuntu:
+
+```shell
+sudo apt-get install apt-transport-https ca-certificates gnupg
+```
+```shell
+echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+```
+```shell
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+```
+```shell
+sudo apt-get update && sudo apt-get install google-cloud-cli
+```
+
+
+
+
+
 ---
 ## Полезные команды:
 
