@@ -54,7 +54,7 @@ resource "google_compute_instance" "build" {
   }
 
   metadata = {
-    ssh-keys       = "withoutspleen:${file("~/.gcp/gcp-key.pub")}"
+    ssh-keys       = "root:${file("~/.gcp/gcp-key.pub")}"
     # for startup script use startup-script = file("build.sh")
   }
 
@@ -64,7 +64,7 @@ resource "google_compute_instance" "build" {
 
     connection {
       type        = "ssh"
-      user        = "withoutspleen"
+      user        = "root"
       private_key = file("~/.ssh/gcp-key")
       agent       = "false"
       host        = self.network_interface[0].access_config[0].nat_ip
@@ -76,7 +76,7 @@ resource "google_compute_instance" "build" {
 
     connection {
       type        = "ssh"
-      user        = "withoutspleen"
+      user        = "root"
       private_key = file("~/.ssh/gcp-key")
       agent       = "false"
       host        = self.network_interface[0].access_config[0].nat_ip
@@ -106,7 +106,7 @@ resource "google_compute_instance" "production" {
   }
 
   metadata = {
-    ssh-keys       = "withoutspleen:${file("~/.gcp/gcp-key.pub")}"
+    ssh-keys       = "root:${file("~/.gcp/gcp-key.pub")}"
     # for startup script use startup-script = file("prod.sh")
   }
 
@@ -116,7 +116,7 @@ resource "google_compute_instance" "production" {
 
     connection {
       type        = "ssh"
-      user        = "withoutspleen"
+      user        = "root"
       private_key = file("~/.ssh/gcp-key")
       agent       = "false"
       host        = self.network_interface[0].access_config[0].nat_ip
@@ -128,7 +128,7 @@ resource "google_compute_instance" "production" {
 
     connection {
       type        = "ssh"
-      user        = "withoutspleen"
+      user        = "root"
       private_key = file("~/.ssh/gcp-key")
       agent       = "false"
       host        = self.network_interface[0].access_config[0].nat_ip
