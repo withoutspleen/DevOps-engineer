@@ -69,6 +69,9 @@ resource "google_compute_instance" "build" {
 #    }
   }
 
+  provisioner "remote-exec" {
+    script      = file("build.sh")
+  }
 
   depends_on = [google_project_service.api, google_compute_firewall.tomcat]
 }
