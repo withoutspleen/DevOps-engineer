@@ -16,7 +16,7 @@ provider "google" {
 
 resource "google_compute_instance" "build" {
   name         = "build"
-  machine_type = "e2-small"
+  machine_type = "custom-2-2048"
   zone         = "us-central1-a"
   tags         = ["http-server", "https-server"]
   boot_disk {
