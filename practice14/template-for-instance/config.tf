@@ -16,7 +16,7 @@ provider "google" {
 
 resource "google_compute_instance" "practice" {
   name         = "practice"
-  machine_type = "custom-2-2048"
+  machine_type = "custom-${var.cpu}-${var.memory}"
   zone         = "us-central1-a"
   tags         = ["http-server", "https-server"]
   boot_disk {
