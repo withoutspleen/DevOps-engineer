@@ -33,7 +33,3 @@ resource "google_compute_instance" "practice" {
     ssh-keys = "root:${file("~/.gcp/gcp-key.pub")}"
   }
 }
-
-output "instance_ip_address" {
-  value = google_compute_instance.practice.network_interface[0].access_config[0].nat_ip
-}
