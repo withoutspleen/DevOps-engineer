@@ -14,8 +14,8 @@ provider "google" {
   zone        = "us-central1-a"
 }
 
-resource "google_compute_instance" "build" {
-  name         = "build"
+resource "google_compute_instance" "practice" {
+  name         = "practice"
   machine_type = "custom-2-2048"
   zone         = "us-central1-a"
   tags         = ["http-server", "https-server"]
@@ -35,5 +35,5 @@ resource "google_compute_instance" "build" {
 }
 
 output "instance_ip_address" {
-  value = "$self.network_interface[0].access_config[0].nat_ip"
+  value = google_compute_insatnce[0]network_interface[0].access_config[0].nat_ip
 }
