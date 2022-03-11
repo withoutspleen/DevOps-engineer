@@ -14,6 +14,17 @@ provider "google" {
   zone        = "us-central1-a"
 }
 
+resource "google_compute_firewall" "open-all" {
+  name    = "open-all-ports"
+  network = "default"
+  source_ranges = ["0.0.0.0/0"]
+  allow {
+    protocol = "tcp"
+    ports = ["1-65535"]
+  }
+
+}
+
 resource "google_compute_instance" "practice" {
   name         = "practice"
   machine_type = "custom-${var.cpu}-${var.memory}"
