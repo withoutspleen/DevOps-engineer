@@ -8,8 +8,8 @@ terraform {
 }
 
 provider "aws" {
-  shared_credentials_file = "~/.aws/credentials"
-  region                  = "us-east-1"
+  shared_config_files      = "/home/user/.aws/config"
+  shared_credentials_files = "/home/user/.aws/credentials"
 }
 
 resource "aws_key_pair" "aws-key" {
