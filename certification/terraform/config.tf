@@ -20,7 +20,7 @@ resource "aws_key_pair" "aws-key" {
 
 resource "aws_security_group" "build-prod" {
   name        = "build-prod"
-  description = "Allow shh input and public out traffic"
+  description = "Allow ssh input and public out traffic"
 
   ingress {
     from_port = 22
