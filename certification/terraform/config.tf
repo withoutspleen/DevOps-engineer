@@ -41,15 +41,15 @@ resource "aws_security_group" "build-prod" {
 }
 }
 
-resource "aws_instance" "build" {
-  ami           = "ami-04505e74c0741db8d"
-  instance_type = "t2.micro"
-  key_name      = "aws-key"
-  security_groups = [
-    "${aws_security_group.build-prod.name}"
-  ]
-  tags = {
-    name        = "build"
-  }
-  depends_on = [aws_key_pair.aws-key, aws_security_group.build-prod]
-}
+#resource "aws_instance" "build" {
+#  ami           = "ami-04505e74c0741db8d"
+#  instance_type = "t2.micro"
+#  key_name      = "aws-key"
+#  security_groups = [
+#    "${aws_security_group.build-prod.name}"
+#  ]
+#  tags = {
+#    name        = "build"
+#  }
+#  depends_on = [aws_key_pair.aws-key, aws_security_group.build-prod]
+#}
