@@ -1,6 +1,6 @@
 ## Сборка веб-приложения war с помощью Maven:
 
-```
+```shell
 cd dir/
 # переходим в необходимую директорию
 git clone https://repository/repository.git

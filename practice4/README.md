@@ -24,7 +24,7 @@ service postgresql restart
 apt install postgresql -y
 ```
 Подготовка директории:
-```
+```shell
 cd /etc/lib/postgresql/
 rm -rf main/*
 pg_basebackup -P -R -X stream -c fast -h ip -U postgres -D ./main
@@ -37,7 +37,7 @@ service postgresql restart
 3. Настройка отложенной репликации:
 
 На реплике, редактируем конфигурационный файл postgresql.conf:
-```
+```shell
 nano /etc/postgresql/12/main/postgresql.conf
 ```
 Находим, раскомментируем и меняем следующую строку:
@@ -50,13 +50,13 @@ service postgresql restart
 4. Promotion:
 
 На реплике подготавливаем директорию:
-```
+```shell
 mkdir dir
 # dir = название директории и путь к ней, например /etc/lib/postgresql/12/promote
 chown -R postgres:postgres dir/
 ```
 На реплике, выдвигаемой на роль мастер ноды редактируем конфигурационный файл postgresql.conf:
-```
+```shell
 nano /etc/postgresql/12/main/postgresql.conf
 ```
 Находим, раскоментируем и меняем следующую строку:
