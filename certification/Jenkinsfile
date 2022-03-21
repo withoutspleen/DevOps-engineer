@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+    stages {
+     stage ('git clone'){
+         steps{
+             git branch: 'main', url: 'https://github.com/withoutspleen/DevOps-engineer.git'
+         }
+     }
+
+     stage ('terraform init'){
+         steps{
+             sh 'cd certification/terraform/ && terraform init'
+         }
+     }
+     stage ('ansible'){
+         steps{
+             sh 'ansible --version'
+         }
+     }
+    }
+}
