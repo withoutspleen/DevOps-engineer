@@ -12,10 +12,36 @@ pipeline {
              sh 'cd certification/terraform/ && terraform init'
          }
      }
+     stage ('terraform apply'){
+        steps{
+            sh 'cd certification/terraform && terraform apply -auto-approve -no-color'}
+        }
+
+     stage ('add instances ip to inventory'){
+        steps{
+            sh 'cd certification/terraform && \
+cat << EOF >> certification/ansible/inventory
+[build]
+$(terraform output -raw build_instance_dns)
+
+[production]
+$(terraform output -raw prod_instance_dns)
+EOF'
+            // debug
+            sh 'cat certification/ansible/inventory'}
+     }
      stage ('ansible'){
          steps{
              sh 'ansible --version'
          }
      }
+     stage ('transfer Dockerfile'){
+        steps{
+            sh 'cd certification/terraform && rsync -avz ../Dockerfile ubuntu@$(terraform output -raw build_instance_dns):/tmp/'}
+        }
+     stage ('ansible playbook'){
+        steps{
+            sh 'cd certification/ansible && ansible -i inventory playbook.yml --key-file "/home/user/.ssh/aws-key"'}
+        }
     }
 }

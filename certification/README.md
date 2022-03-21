@@ -2,12 +2,13 @@
 ```shell
 variable=$(command)
 ```
-Запись inventory:
+Запись в inventory:
 ```shell
-sh -c 'cat << EOF >> certification/inventory
+cat << EOF >> path/to/inventory_file
 [build]
-$(terraform output -raw build_instance_dns
+$(terraform output -raw build_instance_dns)
 
 [production]
-$(terraform output -raw prod_instance_dns'
+$(terraform output -raw prod_instance_dns)
+EOF
 ```
