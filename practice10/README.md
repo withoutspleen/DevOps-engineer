@@ -55,7 +55,7 @@ apt update && apt install docker.io -y
 ```shell
 nano /etc/ssh/sshd_config
 ```
-```editorconfig
+```
 PermitRootLogin yes
 PasswordAuthentication yes
 ```
