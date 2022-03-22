@@ -19,8 +19,7 @@ pipeline {
 
      stage ('add instances ip to inventory'){
         steps{
-            sh 'cd certification/terraform && \
-cat << EOF >> certification/ansible/inventory
+            sh 'cd certification/terraform && cat << EOF >> certification/ansible/inventory
 [build]
 $(terraform output -raw build_instance_dns)
 
