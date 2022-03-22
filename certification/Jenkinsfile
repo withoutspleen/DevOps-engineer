@@ -3,19 +3,19 @@ pipeline {
     stages {
         stage ('git clone'){
             steps {
-                             git branch: 'main', url: 'https://github.com/withoutspleen/DevOps-engineer.git'
+                git branch: 'main', url: 'https://github.com/withoutspleen/DevOps-engineer.git'
             }
         }
 
         stage ('terraform init'){
             steps {
-                             sh 'cd certification/terraform/ && terraform init -no-color'
+                sh 'cd certification/terraform/ && terraform init -no-color'
             }
         }
 
         stage ('terraform apply'){
             steps {
-                            sh 'cd certification/terraform && terraform apply -auto-approve -no-color'}
+                sh 'cd certification/terraform && terraform apply -auto-approve -no-color'}
             }
 
         stage ('add instances ip to inventory'){
