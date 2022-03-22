@@ -19,23 +19,13 @@ pipeline {
             }
 
         stage ('add instances ip to inventory'){
-            environment {
-                build_public_dns = """${sh(
-                returnStdout: true,
-                script: 'cd certification/terraform && terraform output -raw build_instance_dns'
-            )}"""
-            prod_public_dns = """${sh(
-                returnStdout: true,
-                script: 'cd certification/terraform && terraform output -raw prod_instance_dns'
-            )}"""
-            }
             steps {
                 sh '''cat << EOF >> certification/ansible/inventory
 [build]
-$build_public_dns
+$(terraform output -raw build_instance_dns)
 
 [production]
-$prod_public_dns
+$(terraform output -raw prod_instance_dns)
 EOF'''
             }
         }
