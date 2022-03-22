@@ -18,7 +18,7 @@ pipeline {
                             sh 'cd certification/terraform && terraform apply -auto-approve -no-color'}
             }
 
-        stage ('add instances ip to inventory and delivery Dockerfile'){
+        stage ('add instances ip to inventory'){
             environment {
                 build_public_dns = """${sh(
                 returnStdout: true,
@@ -37,8 +37,12 @@ $build_public_dns
 [production]
 $prod_public_dns
 EOF'''
+            }
+        }
+
+        stage ('wait few seconds for insatnces start'){
+            steps {
                 sh 'sleep 30s'
-                sh 'rsync -avz -e "ssh -i /home/user/.aws/aws-key" ../Dockerfile ubuntu@$build_public_dns:/tmp/'
             }
         }
 
