@@ -14,11 +14,6 @@
      - name: install boto
        pip:
          name: ['boto', 'boto3', 'botocore']
-     - name: Copy credentials from localhost
-       copy:
-         src: ~/.aws/credentials
-         dest: ~/.aws/
-         mode: 0644
 
  - name: Build docker image
    hosts: build
