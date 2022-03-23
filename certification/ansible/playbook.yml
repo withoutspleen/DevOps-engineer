@@ -31,7 +31,7 @@
    tasks:
      - name: Ensure docker dir is present
        ansible.builtin.file:
-         path: /tmp/docker
+         path: .
          state: directory
      - name: copy container
        copy: src=Dockerfile dest=/tmp/docker
@@ -43,7 +43,7 @@
      - name: Tag and push image
        docker_image:
          path: /tmp/docker
-         name: "{{ ecr_id }}"/build
+         name: "{{ ecr_id }}/build"
          repository: "{{ ecr_id }}"
          tag: 1.0
          push: yes
@@ -66,6 +66,6 @@
      - name: Create container
        docker_container:
          name: boxfuse
-         image: "{{ ecr_id }}"/build:1.0
+         image: "{{ ecr_id }}/build:1.0"
          ports:
            - 8080:8080
