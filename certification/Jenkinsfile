@@ -30,9 +30,9 @@ EOF'''
             }
         }
 
-        stage ('wait few seconds for instances start'){
+        stage ('wait few seconds for insatnces start'){
             steps {
-                sh 'sleep 45s'
+                sh 'sleep 40s'
             }
         }
 
