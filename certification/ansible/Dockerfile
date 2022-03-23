@@ -1,5 +1,4 @@
 FROM maven:3.8.4-jdk-11 as build
-COPY . .
 RUN apt-get update; \
     apt install git;
 RUN cd /tmp/ ; \

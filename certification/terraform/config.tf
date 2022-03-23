@@ -30,9 +30,9 @@ resource "aws_security_group" "build-prod" {
   }
 
   egress {
-    from_port = 0
-    protocol  = "-1"
-    to_port   = 0
+    from_port = 8080
+    protocol  = "tcp"
+    to_port   = 8080
     cidr_blocks = ["0.0.0.0/0"]
   }
 
