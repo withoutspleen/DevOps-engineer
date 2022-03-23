@@ -30,7 +30,7 @@ EOF'''
             }
         }
 
-        stage ('wait few seconds for insatnces start'){
+        stage ('wait few seconds for instances start'){
             steps {
                 sh 'cp certification/Dockerfile /tmp/'
                 sh 'sleep 30s'
