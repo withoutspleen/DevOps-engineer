@@ -32,13 +32,16 @@ EOF'''
 
         stage ('wait few seconds for insatnces start'){
             steps {
+                sh 'cp certification/Dockerfile /tmp/'
                 sh 'sleep 30s'
             }
         }
 
         stage ('ansible playbook'){
             steps {
-                sh 'cd certification/ansible && ansible -i inventory playbook.yml --key-file "/home/user/.ssh/aws-key"'
+                sh 'cd certification/ansible && ansible-playbook -i inventory
+                --vault-password-file=/home/user/.ansible/vault_pass playbook.yml --key-file
+                "/home/user/.ssh/aws-key"'
             }
         }
     }

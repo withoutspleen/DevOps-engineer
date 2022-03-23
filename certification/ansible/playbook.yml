@@ -1,21 +1,12 @@
 ---
- - name: Prepare instances
-   hosts: build, production
-   remote_user: ubuntu
-   become: yes
-   become_user: root
+ - name: test
+   hosts: build
+   vars_files:
+     - vars/creds.yml
 
    tasks:
-     - name: install pip, docker
-       apt:
-         name: ['docker.io', 'python3', 'python3-pip']
-         state: latest
-         update_cache: yes
-     - name: install boto, docker api
-       pip:
-         name: ['boto', 'boto3', 'botocore', 'docker']
-     - name: Copy credentials from localhost
-       copy:
-         src: ~/.aws/credentials
-         dest: ~/.aws/
-         mode: 0644
+     - name: login
+       docker_login:
+         username: AWS
+         registry: "{{ ecr_id }}"
+         password: "{{ ecr_password }}"
