@@ -1,12 +1,71 @@
 ---
- - name: test
+ - name: Prepare instances
+   hosts: build, production
+   remote_user: ubuntu
+   become: yes
+   become_user: root
+
+   tasks:
+     - name: install pip
+       apt:
+         name: ['python3', 'python3-pip']
+         state: latest
+         update_cache: yes
+     - name: install boto
+       pip:
+         name: ['boto', 'boto3', 'botocore']
+     - name: Copy credentials from localhost
+       copy:
+         src: ~/.aws/credentials
+         dest: ~/.aws/
+         mode: 0644
+
+ - name: Build docker image
    hosts: build
+   remote_user: ubuntu
+   become: yes
+   become_user: root
    vars_files:
      - vars/creds.yml
 
    tasks:
-     - name: login
+     - name: Ensure docker dir is present
+       ansible.builtin.file:
+         path: /tmp/docker
+         state: directory
+     - name: copy container
+       copy: src=Dockerfile dest=/tmp/docker
+     - name: Login into aws ecr
        docker_login:
          username: AWS
          registry: "{{ ecr_id }}"
          password: "{{ ecr_password }}"
+     - name: Tag and push image
+       docker_image:
+         path: /tmp/docker
+         name: "{{ ecr_id }}"/build
+         repository: "{{ ecr_id }}"
+         tag: 1.0
+         push: yes
+
+
+ - name: Deploy docker image
+   hosts: production
+   remote_user: ubuntu
+   become: yes
+   become_user: root
+   vars_files:
+     - vars/creds.yml
+
+   tasks:
+     - name: Login into aws ecr
+       docker_login:
+         username: AWS
+         registry: "{{ ecr_id }}"
+         password: "{{ ecr_password }}
+     - name: Create container
+       docker_container:
+         name: boxfuse
+         image: "{{ ecr_id }}"/build:1.0
+         ports:
+           - 8080:8080

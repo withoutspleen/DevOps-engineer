@@ -40,8 +40,7 @@ EOF'''
         stage ('ansible playbook'){
             steps {
                 sh 'cd certification/ansible && ansible-playbook -i inventory
-                --vault-password-file=/home/user/.ansible/vault_pass playbook.yml --key-file
-                "/home/user/.ssh/aws-key"'
+                --vault-password-file=/home/user/.ansible/vault_pass playbook.yml --key-file "/home/user/.ssh/aws-key"'
             }
         }
     }
