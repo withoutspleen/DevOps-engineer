@@ -47,8 +47,9 @@ resource "aws_instance" "build" {
   instance_type = var.instance_type
   key_name      = "aws-key"
   security_groups = ["build-prod"]
+
   tags = {
-    name        = "build"
+    Name        = "build"
   }
   depends_on = [aws_key_pair.aws-key, aws_security_group.build-prod]
 }
@@ -58,8 +59,9 @@ resource "aws_instance" "prod" {
   instance_type = var.instance_type
   key_name      = "aws-key"
   security_groups = ["build-prod"]
+
   tags = {
-    name        = "prod"
+    Name        = "prod"
   }
   depends_on = [aws_key_pair.aws-key, aws_security_group.build-prod]
 }
