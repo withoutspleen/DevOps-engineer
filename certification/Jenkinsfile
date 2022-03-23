@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        AWS_PRIVATE_KEY=credentials('aws-private-key')
+    }
     stages {
         stage ('git clone'){
             steps {
@@ -32,13 +35,14 @@ EOF'''
 
         stage ('wait few seconds for insatnces start'){
             steps {
-                sh 'sleep 40s'
+                sh 'sleep 30s'
             }
         }
 
         stage ('ansible playbook'){
             steps {
-                sh 'cd certification/ansible && ansible-playbook -i inventory --vault-password-file=/home/user/.ansible/vault_pass playbook.yml --key-file "/home/user/.ssh/aws-key"'
+                sh 'cd certification/terraform && ssh-keyscan -H $(terraform output -raw build_instance_dns) >> ~/.ssh/known_hosts && ssh-keyscan -H $(terraform output -raw prod_instance_dns) >> ~/.ssh/known_hosts'
+                sh 'ansible-playbook -i certification/ansible/inventory --vault-password-file=/home/user/.ansible/vault_pass --key-file "~/.ssh/aws-key" certification/ansible/playbook.yml'
             }
         }
     }
