@@ -38,8 +38,8 @@
      - name: Tag and push image
        docker_image:
          path: /tmp/docker
-         name: "{{ ecr_id }}/build"
-         repository: "{{ ecr_id }}"
+         name: "{{ ecr_rep }}/build"
+         repository: "{{ ecr_rep }}"
          tag: 1.0
          push: yes
 
@@ -57,10 +57,10 @@
        docker_login:
          username: AWS
          registry: "{{ ecr_id }}"
-         password: "{{ ecr_password }}
+         password: "{{ ecr_password }}"
      - name: Create container
        docker_container:
          name: boxfuse
-         image: "{{ ecr_id }}/build:1.0"
+         image: "{{ ecr_rep }}/build:1.0"
          ports:
            - 8080:8080
