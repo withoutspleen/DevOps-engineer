@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    environment {
-        AWS_PRIVATE_KEY=credentials('aws-private-key')
-    }
     stages {
         stage ('git clone'){
             steps {
