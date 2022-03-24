@@ -59,6 +59,6 @@
      - name: Create container
        docker_container:
          name: boxfuse
-         image: "{{ ecr_rep }}/build:1.0"
+         image: "{{ ecr_rep }}/build:latest"
          ports:
            - 8080:8080
