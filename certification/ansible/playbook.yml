@@ -39,8 +39,7 @@
        docker_image:
          build_path: /tmp/docker
          name: "{{ ecr_rep }}/build"
-         repository: "{{ ecr_rep }}/build"
-         tag: '1.0'
+         tag: 'latest'
          push: yes
 
  - name: Deploy docker image
