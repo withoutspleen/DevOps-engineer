@@ -8,12 +8,12 @@
    tasks:
      - name: install pip. docker
        apt:
-         name: ['python3', 'python3-pip', 'docker.io']
+         name: ['python3-pip', 'docker.io']
          state: latest
          update_cache: yes
      - name: install boto, docker API
        pip:
-         name: ['boto', 'boto3', 'botocore', 'docker']
+         name: ['boto3', 'docker']
 
  - name: Build docker image
    hosts: build
