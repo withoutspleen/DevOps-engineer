@@ -27,6 +27,7 @@ $(terraform output -raw build_instance_dns)
 [production]
 $(terraform output -raw prod_instance_dns)
 EOF'''
+                sh 'cd certification/terraform && ssh-keyscan -H $(terraform output -raw build_instance_dns) >> ~/.ssh/known_hosts && ssh-keyscan -H $(terraform output -raw prod_instance_dns) >> ~/.ssh/known_hosts'
             }
         }
 
