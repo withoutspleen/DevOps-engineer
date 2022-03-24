@@ -37,10 +37,10 @@
          password: "{{ ecr_password }}"
      - name: Tag and push image
        docker_image:
-         path: /tmp/docker
+         build_path: /tmp/docker
          name: "{{ ecr_rep }}/build"
          repository: "{{ ecr_rep }}/build"
-         tag: 1.0
+         tag: '1.0'
          push: yes
 
  - name: Deploy docker image
